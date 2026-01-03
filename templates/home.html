@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Latest Posts</h2>
+
+{% for post in posts %}
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+
+    <h4 class="card-title">{{ post.title }}</h4>
+
+    <p class="text-muted mb-2">
+      By <strong>{{ post.author.username }}</strong> |
+      {{ post.created_at.strftime('%d %b %Y') }}
+    </p>
+
+    <p class="card-text">
+      {{ post.content[:200] }}{% if post.content|length > 200 %}...{% endif %}
+    </p>
+
+    <div class="d-flex align-items-center gap-3">
+      <!-- Like Button -->
+      <a href="{{ url_for('like_post', post_id=post.id) }}"
+         class="btn btn-outline-danger btn-sm">
+        ❤️ Like
+      </a>
+
+      <!-- Likes Count -->
+      <span>
+        {{ post.liked_by|length }} Likes
+      </span>
+
+      <!-- View Post -->
+      <a href="{{ url_for('post_detail', post_id=post.id) }}"
+         class="btn btn-outline-primary btn-sm ms-auto">
+        View
+      </a>
+    </div>
+
+  </div>
+</div>
+{% else %}
+<p>No posts yet.</p>
+{% endfor %}
+
+{% endblock %}

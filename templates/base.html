@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="/">MyBlog</a>
+    <div>
+      {% if current_user.is_authenticated %}
+      <!-- Active / Logged in user -->
+      <span class="text-white">
+        <i class="bi bi-person-circle"></i>
+        {{ current_user.username }}
+      </span>
+      <a href="/create" class="btn btn-success btn-sm">New Post</a>
+      <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+      {% else %}
+      <a href="/login" class="btn btn-light btn-sm">Login</a>
+      <a href="/register" class="btn btn-warning btn-sm">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+
+</html>
